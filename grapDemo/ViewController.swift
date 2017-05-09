@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var barChart: UIView!
     @IBOutlet weak var threedChart: UIView!
     
-        var btnNew : [UIButton] = []
+    var btnNew : [UIButton] = []
     
     override func viewDidLoad() {
         
@@ -22,135 +22,55 @@ class ViewController: UIViewController {
         
         //ScrollbarChart()
         scrollChart(ObjeData: "")
-        
         threediChart()
     }
-    
     @IBAction func btnWeeklyAction(_ sender: UIButton) {
         scrollChart(ObjeData: "Weekly")
-        
-        
     }
     @IBAction func btnDailyAction(_ sender: UIButton) {
         scrollChart(ObjeData: "Daily")
-        
-
-    }
-    func btnAction(sender:UIButton)
-    {
-        print(sender.tag)
-        
-        
-        for button in btnNew
-        {
-            if sender.tag == button.tag
-            {
-                button.backgroundColor = UIColor.orange
-            }
-            else{
-                button.backgroundColor = UIColor.black
-            }
-        }
-    }
-    func ScrollbarChart()
-    {
-        let data: [Double] = [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
-        let widh = UIScreen.main.bounds.size.width - 20
-
-        let vlineView = UIView(frame: CGRect(x: widh-1, y: 0, width: 1, height: 222))
-        vlineView.layer.borderWidth = 1.0
-        vlineView.layer.borderColor = UIColor.black.cgColor
-        self.barChart.addSubview(vlineView)
-        
-        let labels = ["jan", "Feb", "march", "April", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        let frmae = CGRect(x: -20, y: 0, width: Int(widh), height: Int(barChart.frame.size.height))
-        
-        let graphView = ScrollableGraphView(frame:frmae)
-        
-        // Disable the lines and data points.
-        graphView.shouldDrawDataPoint = false
-        graphView.lineColor = UIColor.clear
-        
-        // Tell the graph it should draw the bar layer instead.
-        graphView.shouldDrawBarLayer = true
-        
-        // Customise the bar.
-        graphView.barWidth = 25
-        graphView.barLineWidth = 1
-        graphView.barLineColor = UIColor.colorFromHex(hexString: "#777777")
-        graphView.barColor = UIColor.colorFromHex(hexString: "#555555")
-        graphView.backgroundFillColor = UIColor.colorFromHex(hexString: "#333333")
-        
-        graphView.referenceLineLabelFont = UIFont.boldSystemFont(ofSize: 8)
-        graphView.referenceLineColor = UIColor.white.withAlphaComponent(0.2)
-        graphView.referenceLineLabelColor = UIColor.white
-        graphView.numberOfIntermediateReferenceLines = 5
-        graphView.dataPointLabelColor = UIColor.white.withAlphaComponent(0.5)
-        
-        graphView.shouldAnimateOnStartup = true
-        graphView.shouldAdaptRange = true
-        graphView.adaptAnimationType = ScrollableGraphViewAnimationType.elastic
-        graphView.animationDuration = 1.5
-        graphView.rangeMax = 50
-        graphView.shouldRangeAlwaysStartAtZero = true
-        graphView.dataPointSpacing = 30
-        
-        graphView.shouldShowReferenceLines = false
-        graphView.shouldRangeAlwaysStartAtZero = false
-        graphView.shouldAddLabelsToIntermediateReferenceLines = false
-        graphView.shouldShowLabels = false
-        graphView.shouldAdaptRange = false
-        graphView.shouldShowReferenceLineUnits = false
-        graphView.set(data: data, withLabels: labels)
-        self.barChart.addSubview(graphView)
     }
     func scrollChart( ObjeData:String)
     {
         for view in barChart.subviews {
             view.removeFromSuperview()
         }
-        
         var ObjeData = ObjeData
         let data: [Double] = [30, 8, 15, 16, 23, 42, 8, 15, 16, 23, 21, 23]
         let widh = UIScreen.main.bounds.size.width - 20
         var ypos = 0
         for i in 0...10
         {
-            let boxView = UIView(frame: CGRect(x: ypos, y: 0, width: 50, height: 222))
-            boxView.layer.borderWidth = 1.0
-            boxView.layer.borderColor = UIColor.black.cgColor
             
-            if (ObjeData == "Daily" || ObjeData == "Weekly") && i > 1
+            if (ObjeData == "Daily") && i == 3
             {
-                if (ObjeData == "Weekly") && i > 5
-                {
-                    let gradient: CAGradientLayer = CAGradientLayer()
-                    
-                    gradient.colors = [UIColor.blue, UIColor.red]
-                    gradient.locations = [0.0 , 1.0]
-                    gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
-                    gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-                    gradient.frame = CGRect(x: 0.0, y: 0.0, width: boxView.frame.size.width, height: boxView.frame.size.height)
-                    //boxView.backgroundColor = UIColor.lightGray
-                    boxView.layer.insertSublayer(gradient, at: 0)
-                }
-                else{
-                    
-                    let gradient: CAGradientLayer = CAGradientLayer()
-                    gradient.colors = [UIColor.blue, UIColor.red]
-                    gradient.locations = [0.0 , 1.0]
-                    gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
-                    gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-                    gradient.frame = CGRect(x: 0.0, y: 0.0, width: boxView.frame.size.width, height: boxView.frame.size.height)
-                    //boxView.backgroundColor = UIColor.lightGray
-                    boxView.layer.insertSublayer(gradient, at: 0)
-                }
+                print("i is \(i)")
+                let Myy = 222 - Int(data[i])
+                
+                print("Myy is \(Myy)")
+                let boxView = UIView(frame: CGRect(x: ypos, y: Myy, width: 50, height: Myy - 2))
+                boxView.backgroundColor = UIColor.orange
+                self.barChart.addSubview(boxView)
                 ObjeData = ""
             }
-            else{
-                boxView.backgroundColor = UIColor.clear
+            else if (ObjeData == "Weekly") && i == 5
+            {
+                let Myy = 222 - Int(data[i])
+                print("Myy is \(Myy)")
+                let boxView = UIView(frame: CGRect(x: ypos, y: Myy, width: 50, height: Myy - 2))
+                boxView.backgroundColor = UIColor.orange
+                self.barChart.addSubview(boxView)
+                ObjeData = ""
+                
             }
-            self.barChart.addSubview(boxView)
+            else{
+                
+                let boxView = UIView(frame: CGRect(x: ypos, y: 0, width: 50, height: 222))
+                boxView.layer.borderWidth = 1.0
+                boxView.layer.borderColor = UIColor.black.cgColor
+                boxView.backgroundColor = UIColor.clear
+                self.barChart.addSubview(boxView)
+            }
             ypos = ypos + 50
         }
         
@@ -158,7 +78,6 @@ class ViewController: UIViewController {
         vlineView.layer.borderWidth = 1.0
         vlineView.layer.borderColor = UIColor.black.cgColor
         self.barChart.addSubview(vlineView)
-        
         
         
         let labels = ["jan", "Feb", "march", "April", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -245,7 +164,7 @@ class ViewController: UIViewController {
         
         graphView.backgroundFillColor = UIColor.colorFromHex(hexString: "#222222")
         graphView.backgroundFillColor = UIColor.clear
-       //graphView.alpha = 0.9
+        //graphView.alpha = 0.9
         graphView.topMargin = -20.0
         graphView.bottomMargin = 10.0
         graphView.rangeMax = 70
@@ -274,10 +193,76 @@ class ViewController: UIViewController {
         graphView.set(data: data, withLabels: labels)
         self.threedChart.addSubview(graphView)
     }
+    func ScrollbarChart()
+    {
+        let data: [Double] = [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
+        let widh = UIScreen.main.bounds.size.width - 20
+        
+        let vlineView = UIView(frame: CGRect(x: widh-1, y: 0, width: 1, height: 222))
+        vlineView.layer.borderWidth = 1.0
+        vlineView.layer.borderColor = UIColor.black.cgColor
+        self.barChart.addSubview(vlineView)
+        
+        let labels = ["jan", "Feb", "march", "April", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        let frmae = CGRect(x: -20, y: 0, width: Int(widh), height: Int(barChart.frame.size.height))
+        
+        let graphView = ScrollableGraphView(frame:frmae)
+        
+        // Disable the lines and data points.
+        graphView.shouldDrawDataPoint = false
+        graphView.lineColor = UIColor.clear
+        
+        // Tell the graph it should draw the bar layer instead.
+        graphView.shouldDrawBarLayer = true
+        
+        // Customise the bar.
+        graphView.barWidth = 25
+        graphView.barLineWidth = 1
+        graphView.barLineColor = UIColor.colorFromHex(hexString: "#777777")
+        graphView.barColor = UIColor.colorFromHex(hexString: "#555555")
+        graphView.backgroundFillColor = UIColor.colorFromHex(hexString: "#333333")
+        
+        graphView.referenceLineLabelFont = UIFont.boldSystemFont(ofSize: 8)
+        graphView.referenceLineColor = UIColor.white.withAlphaComponent(0.2)
+        graphView.referenceLineLabelColor = UIColor.white
+        graphView.numberOfIntermediateReferenceLines = 5
+        graphView.dataPointLabelColor = UIColor.white.withAlphaComponent(0.5)
+        
+        graphView.shouldAnimateOnStartup = true
+        graphView.shouldAdaptRange = true
+        graphView.adaptAnimationType = ScrollableGraphViewAnimationType.elastic
+        graphView.animationDuration = 1.5
+        graphView.rangeMax = 50
+        graphView.shouldRangeAlwaysStartAtZero = true
+        graphView.dataPointSpacing = 30
+        
+        graphView.shouldShowReferenceLines = false
+        graphView.shouldRangeAlwaysStartAtZero = false
+        graphView.shouldAddLabelsToIntermediateReferenceLines = false
+        graphView.shouldShowLabels = false
+        graphView.shouldAdaptRange = false
+        graphView.shouldShowReferenceLineUnits = false
+        graphView.set(data: data, withLabels: labels)
+        self.barChart.addSubview(graphView)
+    }
+    
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+class Colors {
+    var glColor:CAGradientLayer!
+    
+    init() {
+        let colorTop = UIColor.clear.cgColor //UIColor(red: 192.0 / 255.0, green: 38.0 / 255.0, blue: 42.0 / 255.0, alpha: 1.0).cgColor
+        let colorBottom = UIColor.orange.cgColor //UIColor(red: 35.0 / 255.0, green: 2.0 / 255.0, blue: 2.0 / 255.0, alpha: 1.0).cgColor
+        
+        self.glColor = CAGradientLayer()
+        self.glColor.colors = [colorTop, colorBottom]
+        self.glColor.locations = [0.0, 3.0]
     }
 }
