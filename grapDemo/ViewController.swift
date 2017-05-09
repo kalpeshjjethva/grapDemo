@@ -44,10 +44,7 @@ class ViewController: UIViewController {
             
             if (ObjeData == "Daily") && i == 3
             {
-                print("i is \(i)")
                 let Myy = 222 - Int(data[i])
-                
-                print("Myy is \(Myy)")
                 let boxView = UIView(frame: CGRect(x: ypos, y: Myy, width: 50, height: Myy - 2))
                 boxView.backgroundColor = UIColor.orange
                 self.barChart.addSubview(boxView)
@@ -56,15 +53,12 @@ class ViewController: UIViewController {
             else if (ObjeData == "Weekly") && i == 5
             {
                 let Myy = 222 - Int(data[i])
-                print("Myy is \(Myy)")
                 let boxView = UIView(frame: CGRect(x: ypos, y: Myy, width: 50, height: Myy - 2))
                 boxView.backgroundColor = UIColor.orange
                 self.barChart.addSubview(boxView)
                 ObjeData = ""
-                
             }
             else{
-                
                 let boxView = UIView(frame: CGRect(x: ypos, y: 0, width: 50, height: 222))
                 boxView.layer.borderWidth = 1.0
                 boxView.layer.borderColor = UIColor.black.cgColor
@@ -73,7 +67,6 @@ class ViewController: UIViewController {
             }
             ypos = ypos + 50
         }
-        
         let vlineView = UIView(frame: CGRect(x: widh-1, y: 0, width: 1, height: 222))
         vlineView.layer.borderWidth = 1.0
         vlineView.layer.borderColor = UIColor.black.cgColor
@@ -81,15 +74,12 @@ class ViewController: UIViewController {
         
         
         let labels = ["jan", "Feb", "march", "April", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        
         let frmae = CGRect(x: 0, y: 0, width: Int(widh), height: Int(barChart.frame.size.height))
         let graphView = ScrollableGraphView(frame: frmae)
         graphView.topMargin = -20.0
         graphView.bottomMargin = 10.0
         graphView.alpha = 0.8
-        
         graphView.backgroundFillColor = UIColor.colorFromHex(hexString: "#111111")
-        //graphView.backgroundFillColor = UIColor.clear
         graphView.rangeMax = 70
         graphView.lineWidth = 3
         graphView.lineColor = UIColor.red //UIColor.colorFromHex(hexString: "#777777")
@@ -152,12 +142,8 @@ class ViewController: UIViewController {
         self.threedChart.addSubview(vlineView)
         self.threedChart.backgroundColor = UIColor.gray
         
-        
-        
-        
-        let data: [Double] = [50, 8, 15, 16, 23, 42, 8, 15, 16, 23, 21, 23]
+        let data: [Double] = [50, 8, 0, 45, 23, 10, 8, 40, 16, 35, 21, 5]
         let labels = ["jan", "Feb", "march", "April", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        
         
         let frmae = CGRect(x: 0, y: 0, width: Int(widh), height: Int(threedChart.frame.size.height))
         let graphView = ScrollableGraphView(frame: frmae)
@@ -175,7 +161,7 @@ class ViewController: UIViewController {
         graphView.shouldFill = true
         graphView.fillColor = UIColor.colorFromHex(hexString: "#FF0080")
         graphView.shouldDrawDataPoint = false
-        graphView.dataPointSpacing = 40
+        graphView.dataPointSpacing = 30
         graphView.dataPointSize = 1
         graphView.dataPointFillColor = UIColor.white
         
