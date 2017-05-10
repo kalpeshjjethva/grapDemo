@@ -11,11 +11,13 @@ import ScrollableGraphView
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var hStackView: UIStackView!
     @IBOutlet weak var barChart: UIView!
     @IBOutlet weak var threedChart: UIView!
     
     var btnNew : [UIButton] = []
     
+    @IBOutlet var objlineView: [UIView]!
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -33,19 +35,58 @@ class ViewController: UIViewController {
     func scrollChart( ObjeData:String)
     {
         for view in barChart.subviews {
-            view.removeFromSuperview()
+            if view is UIStackView
+            {
+            }
+            else{
+                view.removeFromSuperview()
+            }
         }
+        
         var ObjeData = ObjeData
         let data: [Double] = [30, 8, 15, 16, 23, 42, 8, 15, 16, 23, 21, 23]
         let widh = UIScreen.main.bounds.size.width - 20
         var ypos = 0
-        for i in 0...10
+        let coreWide = UIScreen.main.bounds.size.width / 12
+        print(Int(coreWide))
+        //barChart.addSubview(hStackView)
+        
+        if ObjeData == "Daily"
         {
-            
+            for view in objlineView
+            {
+                if view.tag == 2
+                {
+                    view.backgroundColor = UIColor.red
+                }
+                else{
+                    view.backgroundColor = UIColor.clear
+                }
+            }
+        }
+        if ObjeData == "Weekly"
+        {
+            for view in objlineView
+            {
+                if view.tag == 3
+                {
+                    view.backgroundColor = UIColor.red
+                }
+                else{
+                    view.backgroundColor = UIColor.clear
+                }
+            }
+        }
+
+        
+ 
+       /*
+        for i in 0...11
+        {
             if (ObjeData == "Daily") && i == 3
             {
                 let Myy = 222 - Int(data[i])
-                let boxView = UIView(frame: CGRect(x: ypos, y: Myy, width: 50, height: Myy - 2))
+                let boxView = UIView(frame: CGRect(x: ypos, y: Myy, width: 40, height: Myy - 2))
                 boxView.backgroundColor = UIColor.orange
                 self.barChart.addSubview(boxView)
                 ObjeData = ""
@@ -53,25 +94,27 @@ class ViewController: UIViewController {
             else if (ObjeData == "Weekly") && i == 5
             {
                 let Myy = 222 - Int(data[i])
-                let boxView = UIView(frame: CGRect(x: ypos, y: Myy, width: 50, height: Myy - 2))
+                let boxView = UIView(frame: CGRect(x: ypos, y: Myy, width: 40, height: Myy - 2))
                 boxView.backgroundColor = UIColor.orange
                 self.barChart.addSubview(boxView)
                 ObjeData = ""
             }
             else{
-                let boxView = UIView(frame: CGRect(x: ypos, y: 0, width: 50, height: 222))
+                let boxView = UIView(frame: CGRect(x: ypos, y: 0, width: 1, height: 222))
                 boxView.layer.borderWidth = 1.0
                 boxView.layer.borderColor = UIColor.black.cgColor
                 boxView.backgroundColor = UIColor.clear
                 self.barChart.addSubview(boxView)
             }
-            ypos = ypos + 50
+            ypos = ypos + Int(coreWide)
         }
+        
         let vlineView = UIView(frame: CGRect(x: widh-1, y: 0, width: 1, height: 222))
         vlineView.layer.borderWidth = 1.0
         vlineView.layer.borderColor = UIColor.black.cgColor
+        //self.barChart.backgroundColor = UIColor.clear
         self.barChart.addSubview(vlineView)
-        
+        */
         
         let labels = ["jan", "Feb", "march", "April", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
         let frmae = CGRect(x: 0, y: 0, width: Int(widh), height: Int(barChart.frame.size.height))
@@ -79,7 +122,8 @@ class ViewController: UIViewController {
         graphView.topMargin = -20.0
         graphView.bottomMargin = 10.0
         graphView.alpha = 0.8
-        graphView.backgroundFillColor = UIColor.colorFromHex(hexString: "#111111")
+        graphView.backgroundFillColor =  UIColor.clear
+        graphView.backgroundColor = UIColor.clear
         graphView.rangeMax = 70
         graphView.lineWidth = 3
         graphView.lineColor = UIColor.red //UIColor.colorFromHex(hexString: "#777777")
